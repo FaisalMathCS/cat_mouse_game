@@ -1,4 +1,5 @@
 import sys
+from itertools import permutations 
 
 graph = {
     "A": ("B", "Center", "E"), 
@@ -46,22 +47,24 @@ def can_cat_force_win(mouse, cat, turn, depth):
 
 def main(): 
     print("Starting")
-    if len(sys.argv) < 3:
-        print("No arguments!\nStart Position: \nMouse: A\nCat: E")
-        mouse_start = "A"
-        cat_start = "E" 
-    elif len(sys.argv) == 3:
-        mouse_start = sys.argv[1] 
-        cat_start = sys.argv[2] 
+    # if len(sys.argv) < 3:
+    #     print("No arguments!\nStart Position: \nMouse: A\nCat: E")
+    #     mouse_start = "A"
+    #     cat_start = "E" 
+    # elif len(sys.argv) == 3:
+    #     mouse_start = sys.argv[1] 
+    #     cat_start = sys.argv[2] 
 
-    if mouse_start not in graph or cat_start not in graph:
-        print("Not in Graph!", list(graph.keys()))
-        sys.exit(1)
-
-    if can_cat_force_win(mouse_start, cat_start, "mouse", 0):
-        print("Cat always wins")
-    else:
-        print("Mouse can RUN!") 
+    # if mouse_start not in graph or cat_start not in graph:
+    #     print("Not in Graph!", list(graph.keys()))
+    #     sys.exit(1)
+    for mouse_start, cat_start in list(permutations(graph.keys(), 2)):
+        memo.clear()
+        print(mouse_start, " ", cat_start) 
+        if can_cat_force_win(mouse_start, cat_start, "mouse", 0):
+            print("Cat always wins")
+        else:
+            print("Mouse can RUN!") 
 
 if __name__ == "__main__":
     main()
